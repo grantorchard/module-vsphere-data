@@ -1,19 +1,34 @@
-locals {
-  prod_datacenter = module.production.datacenter_id
-  prod_cluster = element([for x in module.production.cluster_ids: x.id if x.name == "Management"], 0)
-  prod_common_network = element([for x in module.production.network_ids: x.id if x.name == "Common"], 0)
+data vsphere_datacenter "this" {
+  name = var.datacenter
+}
+
+data vsphere_compute_cluster "this" {
+  for_each      = toset(var.clusters)
+  name          = each.value
+  datacenter_id = data.vsphere_datacenter.this.id
+}
+
+data vsphere_datastore "this" {
+  for_each = toset(var.datastores)
+  name          = each.value
+  datacenter_id = data.vsphere_datacenter.this.id
+}
+
+data vsphere_datastore_cluster "this" {
+  for_each = toset(var.datastore_clusters)
+  name          = each.value
+  datacenter_id = data.vsphere_datacenter.this.id
 }
 
 
-module production {
-  source = "./modules"
-
-  datacenter = "Core"
-  clusters = ["Tenant", "Management"]
-  networks = ["Common", "VM Network", "LS1"]
-  datastore_clusters = ["prod-cluster"]
-  templates = ["ubuntu-18.04-packer"]
-
+data vsphere_network "this" {
+  for_each = toset(var.networks)
+  name          = each.value
+  datacenter_id = data.vsphere_datacenter.this.id
 }
 
-
+data vsphere_virtual_machine "template" {
+  for_each = toset(var.templates)
+  name          = each.value
+  datacenter_id = data.vsphere_datacenter.this.id
+}
