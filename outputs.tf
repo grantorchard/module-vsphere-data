@@ -1,4 +1,4 @@
-output cluster_ids {
+output clusters {
   value = [
     for k, v in data.vsphere_compute_cluster.this : {
       "name" = v.name,
@@ -16,7 +16,7 @@ output custom_attributes {
   ]
 }
 
-output datacenter_id {
+output datacenter {
   value = data.vsphere_datacenter.this.id
 }
 
