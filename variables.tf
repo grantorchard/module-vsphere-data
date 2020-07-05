@@ -1,10 +1,10 @@
 variable clusters {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable custom_attributes {
-  type    = list
+  type    = list(string)
   default = []
 }
 
@@ -13,12 +13,12 @@ variable datacenter {
 }
 
 variable datastores {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable datastore_clusters {
-  type    = list
+  type    = list(string)
   default = []
 }
 
@@ -28,27 +28,27 @@ variable disks {
 }
 
 variable distributed_virtual_switches {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable hosts {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable networks {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable resource_pools {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable storage_policies {
-  type    = list
+  type    = list(string)
   default = []
 }
 
@@ -58,11 +58,11 @@ variable tags {
 }
 
 variable tag_categories {
-  type    = list
+  type    = list(string)
   default = []
 }
 
 variable templates {
-  type    = list
+  type    = list(string)
   default = []
 }
